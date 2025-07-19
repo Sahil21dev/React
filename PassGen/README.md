@@ -1,12 +1,75 @@
-# React + Vite
+🔐 Password Generator
+A modern, stylish password generator app built with React and Tailwind CSS. Generate secure passwords with customizable length, numbers, and special characters. Built with a sleek UI, glassmorphism, and toast notifications for great UX.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 Features
+✅ Generate random secure passwords
 
-Currently, two official plugins are available:
+🎚️ Adjustable password length (4–20)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔢 Toggle inclusion of numbers
 
-## Expanding the ESLint configuration
+🔣 Toggle inclusion of special characters
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📋 One-click copy to clipboard
+
+🧊 Glassmorphism UI with gradients and animations
+
+🔔 Toast notification on copy
+
+📱 Mobile responsive
+
+
+🛠️ Tech Stack
+React
+
+Tailwind CSS
+
+React Hot Toast
+
+📦 Installation
+bash
+Copy
+Edit
+git clone https://github.com/your-username/password-generator.git
+cd password-generator
+npm install
+npm run dev
+⚠️ Make sure you have Node.js v18+ and npm installed.
+
+📁 Project Structure
+pgsql
+Copy
+Edit
+src/
+│
+├── App.jsx          # Main component with password logic & UI
+├── index.js         # React entry point
+└── index.css        # Tailwind styles
+✨ Customization
+🎨 Update tailwind.config.js for more themes
+
+📂 Add new pages/components for extended features like strength meter, themes, etc.
+
+📌 Learnings
+This project helps reinforce:
+
+Working with useState, useEffect, and useRef
+
+Tailwind responsive UI building
+
+Modular and reusable design with React
+
+User feedback with react-hot-toast
+
+🧠 Future Enhancements
+Password strength indicator
+
+Toggle dark/light mode
+
+Save history of generated passwords
+
+Theme switcher
+
+📜 License
+MIT © [Sahil Tyagi]
+
