@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+  environment {
+    DEPLOY_DIR = "/var/www/html"
+    BRANCH = "main"
+    REPO_URL = "https://github.com/Sahil21dev/React.git"
+  }
+  stages {
+    stage('Checkout') { steps { git branch: env.BRANCH, url: env.REPO_URL } }
+    stage('Deploy') {
+      steps {
+        sh """
+          sudo rm -rf ${DEPLOY_DIR}/*
+          sudo cp -r * ${DEPLOY_DIR}/
+          sudo chown -R www-data:www-data ${DEPLOY_DIR} || true
+        """
+      }
+    }
+  }
+}
