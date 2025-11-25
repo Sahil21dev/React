@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WanderVista — Explore the World</title>
+  <meta name="description" content="A small static tourism demo site with responsive layout, gallery, FAQ and contact form." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <style>
+    :root{
+      --accent:#0ea5a4;
+      --dark:#0f172a;
+      --muted:#64748b;
+      --card:#fff;
+      --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; color:var(--dark); background:linear-gradient(180deg,#f8fafc, #eef2ff);}
+    header{position:sticky;top:0;backdrop-filter:blur(6px);background:rgba(255,255,255,0.6);border-bottom:1px solid rgba(15,23,42,0.04);}
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+
+    .nav{display:flex;align-items:center;gap:16px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:800}
+    nav a{color:var(--dark);text-decoration:none;padding:8px;border-radius:8px}
+    nav a:hover{background:var(--glass)}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:40px 0}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.85));padding:28px;border-radius:14px;box-shadow:0 6px 24px rgba(16,24,40,0.06)}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(14,165,164,0.12);color:var(--accent);font-weight:600;margin-bottom:12px}
+    h1{font-size:clamp(28px,4vw,40px);margin:0 0 10px}
+    p.lead{color:var(--muted);margin:0 0 16px}
+    .cta{display:inline-block;background:var(--accent);color:white;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700}
+
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(11,20,50,0.06)}
+    .card img{display:block;width:100%;height:160px;object-fit:cover}
+    .card-content{padding:12px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .meta{color:var(--muted);font-size:14px}
+
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:26px 0}
+    .feature{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:10px}
+
+    footer{padding:28px 0;color:var(--muted)}
+
+    /* responsive layout */
+    @media(min-width:800px){
+      .hero{grid-template-columns:1fr 460px}
+      .hero-grid{grid-template-columns:1fr}
+      .card img{height:200px}
+    }
+
+    /* lightbox */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:60}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:92%;max-height:86%;border-radius:8px;box-shadow:0 20px 60px rgba(2,6,23,0.6)}
+
+    /* simple form */
+    .form-row{display:flex;gap:10px}
+    input,textarea,button{font-family:inherit}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06)}
+    button{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:0;font-weight:700}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">W</div>
+        <div>
+          <div>WanderVista</div>
+          <div style="font-size:12px;color:var(--muted)">Discover. Dream. Go.</div>
+        </div>
+      </div>
+      <nav aria-label="main navigation">
+        <a href="#destinations">Destinations</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <span class="kicker">Top Picks 2025</span>
+        <h1>Explore famous destinations — curated travel inspiration</h1>
+        <p class="lead">Handpicked cities, islands and wilderness spots with beautiful photos, travel tips and a compact gallery. Responsive, accessible and ready to host as a static site.</p>
+        <a class="cta" href="#destinations">Start exploring</a>
+
+        <div class="features" style="margin-top:18px">
+          <div class="feature">
+            <strong>Curated Places</strong>
+            <div class="meta">Short descriptions, best time to visit and quick tips.</div>
+          </div>
+          <div class="feature">
+            <strong>Responsive Gallery</strong>
+            <div class="meta">Auto-scaling images for phones, tablets and desktops.</div>
+          </div>
+          <div class="feature">
+            <strong>Lightbox</strong>
+            <div class="meta">Click any image to enlarge — works without external libraries.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(16,24,40,0.06)">
+        <!-- hero image (Unsplash "travel" query) -->
+        <img src="https://picsum.photos/800/600?random=101" alt="scenic travel landscape" style="width:100%;height:100%;display:block;object-fit:cover;min-height:320px">
+      </div>
+    </section>
+
+    <section id="destinations" style="margin-top:30px">
+      <h2 style="margin:0 0 12px">Popular Destinations</h2>
+      <p class="lead">A small sample of world-class places to visit. Click an image to open the lightbox.</p>
+
+      <div id="gallery" class="gallery" aria-live="polite">
+
+        <article class="card">
+          <img loading="lazy" alt="Paris skyline with Eiffel Tower" src="https://picsum.photos/800/600?random=102" data-caption="Paris — Eiffel Tower and Seine river" />
+          <div class="card-content">
+            <h3>Paris, France</h3>
+            <div class="meta">Art, cafés and the Seine. Best: Apr-Jun & Sep-Oct.</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" alt="Tropical beach with palms" src="https://picsum.photos/800/600?random=103" data-caption="Bali — tropical beaches and temples" />
+          <div class="card-content">
+            <h3>Bali, Indonesia</h3>
+            <div class="meta">Beaches, rice terraces and temples. Best: Apr-Sep.</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" alt="Mountain lake and pine trees" src="https://picsum.photos/800/600?random=104" data-caption="New Zealand — mountains and lakes" />
+          <div class="card-content">
+            <h3>New Zealand</h3>
+            <div class="meta">Hiking, fjords and clear skies. Best: Dec-Feb (summer).</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" alt="Northern lights over snowy landscape" src="https://picsum.photos/800/600?random=105" data-caption="Iceland — northern lights and volcanic landscapes" />
+          <div class="card-content">
+            <h3>Iceland</h3>
+            <div class="meta">Aurora, glaciers and geothermal springs. Best: Sep-Mar.</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" alt="Ancient temple in a desert" src="https://picsum.photos/800/600?random=106" data-caption="Egypt — ancient history and pyramids" />
+          <div class="card-content">
+            <h3>Egypt</h3>
+            <div class="meta">History, Nile cruises and archaeological sites. Best: Oct-Apr.</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img loading="lazy" alt="City skyline with modern towers" src="https://picsum.photos/800/600?random=107" data-caption="Tokyo — neon cityscapes and cuisine" />
+          <div class="card-content">
+            <h3>Tokyo, Japan</h3>
+            <div class="meta">Culture, food and technology. Best: Mar-May & Sep-Nov.</div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="faq" style="margin-top:38px">
+      <h2 style="margin-bottom:10px">FAQ</h2>
+      <details>
+        <summary style="cursor:pointer;padding:10px 12px;border-radius:8px;background:var(--glass)">Are these images licensed for reuse?</summary>
+        <div style="padding:10px 12px">Images are hot-linked from Unsplash (free-to-use photography). For production, consider downloading and hosting images you have the rights to use.</div>
+      </details>
+      <details style="margin-top:8px">
+        <summary style="cursor:pointer;padding:10px 12px;border-radius:8px;background:var(--glass)">How do I host this site?</summary>
+        <div style="padding:10px 12px">This is a static HTML file — you can host it on GitHub Pages, Netlify, Vercel or any static-file host. Simply upload the HTML file and (optionally) images.</div>
+      </details>
+    </section>
+
+    <section id="contact" style="margin-top:30px;margin-bottom:40px">
+      <h2>Contact / Newsletter</h2>
+      <p class="lead">This contact form is a demo — it does not send messages without backend wiring. Use it as a starting point.</p>
+      <form onsubmit="event.preventDefault();alert('Demo: form submission blocked — add a backend or use Netlify Forms.');" aria-label="Contact form">
+        <div class="form-row" style="margin-bottom:10px">
+          <input type="text" placeholder="Your name" aria-label="Your name" required />
+          <input type="email" placeholder="Email" aria-label="Email" required />
+        </div>
+        <div style="margin-bottom:10px">
+          <input type="text" placeholder="Subject" aria-label="Subject" />
+        </div>
+        <div style="margin-bottom:10px">
+          <textarea placeholder="Message" rows="5" aria-label="Message"></textarea>
+        </div>
+        <button type="submit">Send message</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="font-weight:700">WanderVista</div>
+      <div style="color:var(--muted);font-size:14px">© <span id="year"></span> WanderVista — built as a static demo</div>
+      <div style="color:var(--muted);font-size:14px">Made with ❤️ — Images from Unsplash</div>
+    </div>
+  </footer>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true" aria-label="Image preview">
+    <img id="lightbox-img" alt="preview image" />
+  </div>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // lightbox behavior
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('#gallery img, .hero img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', e => {
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        lightboxImg.src = img.src.replace('/800x600/','/1600x1000/');
+        lightboxImg.alt = img.getAttribute('data-caption') || img.alt || 'Image preview';
+      });
+    });
+    lightbox.addEventListener('click', ()=>{
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lightboxImg.src = '';
+    });
+    // keyboard close
+    window.addEventListener('keydown', e=>{ if(e.key==='Escape') lightbox.click(); });
+  </script>
+</body>
+</html>
